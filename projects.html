@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Projects — Your Name</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="nav-name" href="index.html">Your Name <span class="dot">/gamedev</span></a>
+    <button class="nav-toggle" aria-label="Toggle menu">MENU</button>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#about">About</a>
+      <a href="projects.html" class="active">Projects</a>
+      <a href="resume.html">Resume</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" style="padding-bottom:40px;">
+  <div class="wrap">
+    <p class="hero-tag">
+      <span class="axis"><span></span><span></span><span></span></span>
+      PROJECTS
+    </p>
+    <h1 style="max-width:20ch; font-size:clamp(2rem,4vw,2.8rem);">Things I've built, shipped, and prototyped.</h1>
+  </div>
+</header>
+
+<section class="section" style="border-bottom:none;">
+  <div class="wrap">
+    <div class="filters">
+      <button class="active" data-filter="all">All</button>
+      <button data-filter="unreal">Unreal Engine</button>
+      <button data-filter="unity">Unity</button>
+      <button data-filter="jam">Game Jams</button>
+      <button data-filter="tools">Tools &amp; Tech Art</button>
+    </div>
+
+    <div class="project-grid">
+
+      <!-- Example: project with BOTH a gameplay video and an in-browser playable build -->
+      <article class="card" data-engine="unreal">
+        <div class="card-thumb"><span class="thumb-label">PBR Shader Pipeline</span><img src="assets/images/project1.jpg" alt="Project Title One screenshot" onerror="this.parentElement.innerHTML='&lt;span class=placeholder&gt;1280×800 project image&lt;/span&gt;'"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="tag">Unreal Engine 5</span>
+            <span class="tag">2025</span>
+            <span class="tag">Gameplay Programming</span>
+          </div>
+          <h3>Project Title One</h3>
+          <p>Describe the project: what it is, your specific contributions, and any interesting technical challenges you solved.</p>
+          <div class="media-actions">
+            <button class="media-btn" data-action="video" data-src="assets/video/project1-gameplay.mp4">▶ Watch gameplay</button>
+            <button class="media-btn" data-action="play" data-src="https://yourusername.itch.io/project-one">🎮 Play in browser</button>
+          </div>
+          <div class="card-links">
+            <a href="https://github.com/yourusername" target="_blank" rel="noopener">Source</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Example: video only, not web-playable -->
+      <article class="card" data-engine="unity">
+        <div class="card-thumb"><span class="thumb-label">Custom VFX Graph</span><img src="assets/images/project2.jpg" alt="Project Title Two screenshot" onerror="this.parentElement.innerHTML='&lt;span class=placeholder&gt;1280×800 project image&lt;/span&gt;'"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="tag">Unity</span>
+            <span class="tag">2024</span>
+            <span class="tag">Shader / VFX</span>
+          </div>
+          <h3>Project Title Two</h3>
+          <p>Describe the project: what it is, your specific contributions, and any interesting technical challenges you solved.</p>
+          <div class="media-actions">
+            <button class="media-btn" data-action="video" data-src="assets/video/project2-gameplay.mp4">▶ Watch gameplay</button>
+          </div>
+          <div class="card-links">
+            <a href="assets/downloads/project2-win.zip" download>⬇ Download (Windows)</a>
+            <a href="https://github.com/yourusername" target="_blank" rel="noopener">Source</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="card" data-engine="jam unity">
+        <div class="card-thumb"><span class="thumb-label">Procedural Level Gen</span><span class="placeholder">1280×800 project image</span></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="tag">Game Jam</span>
+            <span class="tag">48hr</span>
+            <span class="tag">2024</span>
+          </div>
+          <h3>Project Title Three</h3>
+          <p>Describe the jam theme, your team size, and what you personally built during the event.</p>
+          <div class="media-actions">
+            <button class="media-btn" data-action="play" data-src="assets/games/project3/index.html">🎮 Play in browser</button>
+          </div>
+          <div class="card-links"></div>
+        </div>
+      </article>
+
+      <article class="card" data-engine="tools unreal">
+        <div class="card-thumb"><span class="thumb-label">Editor Tool / Blueprint</span><span class="placeholder">1280×800 project image</span></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="tag">Editor Tooling</span>
+            <span class="tag">2023</span>
+          </div>
+          <h3>Project Title Four</h3>
+          <p>Describe an internal tool, pipeline script, or technical-art system you built to help a team work faster.</p>
+          <div class="card-links">
+            <a href="assets/downloads/project4-tool.zip" download>⬇ Download</a>
+            <a href="https://github.com/yourusername" target="_blank" rel="noopener">Source</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© <span id="year"></span> Your Name — Built with HTML/CSS/JS, hosted on GitHub Pages.</div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>

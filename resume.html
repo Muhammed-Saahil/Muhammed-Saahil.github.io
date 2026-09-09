@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Resume — Your Name</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="nav-name" href="index.html">Your Name <span class="dot">/gamedev</span></a>
+    <button class="nav-toggle" aria-label="Toggle menu">MENU</button>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#about">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="resume.html" class="active">Resume</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" style="padding-bottom:40px;">
+  <div class="wrap">
+    <p class="hero-tag">
+      <span class="axis"><span></span><span></span><span></span></span>
+      RESUME
+    </p>
+    <h1 style="max-width:20ch; font-size:clamp(2rem,4vw,2.8rem);">Experience, education, and skills.</h1>
+  </div>
+</header>
+
+<section class="section" style="border-bottom:none;">
+  <div class="wrap">
+
+    <div class="resume-download">
+      <div>
+        <strong>Prefer a PDF?</strong>
+        <div style="color:var(--text-1); font-size:0.9rem;">Download a copy to send directly to recruiters.</div>
+      </div>
+      <a class="btn btn-primary" href="assets/resume/resume.pdf" download>Download PDF</a>
+    </div>
+
+    <div class="resume-block">
+      <h2>Experience</h2>
+
+      <div class="resume-item">
+        <div class="row">
+          <span class="role">Gameplay Programmer</span>
+          <span class="when">2024 — Present</span>
+        </div>
+        <div class="org">Studio Name</div>
+        <ul>
+          <li>Describe a key responsibility or system you owned.</li>
+          <li>Describe a measurable contribution or shipped feature.</li>
+        </ul>
+      </div>
+
+      <div class="resume-item">
+        <div class="row">
+          <span class="role">Technical Art Intern</span>
+          <span class="when">2023 — 2024</span>
+        </div>
+        <div class="org">Studio Name</div>
+        <ul>
+          <li>Built shader/VFX tools used across the art team.</li>
+          <li>Collaborated with engineers to optimize rendering pipeline.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="resume-block">
+      <h2>Education</h2>
+      <div class="resume-item">
+        <div class="row">
+          <span class="role">BSc (Hons) Computer Games Technology</span>
+          <span class="when">2020 — 2024</span>
+        </div>
+        <div class="org">University Name</div>
+      </div>
+    </div>
+
+    <div class="resume-block">
+      <h2>Skills</h2>
+      <div class="skills">
+        <span>Unity</span>
+        <span>Unreal Engine</span>
+        <span>C#</span>
+        <span>C++</span>
+        <span>HLSL</span>
+        <span>Shader Graph</span>
+        <span>Blueprints</span>
+        <span>Blender</span>
+        <span>Perforce / Git</span>
+      </div>
+    </div>
+
+    <div class="resume-block">
+      <h2>Awards</h2>
+      <div class="resume-item">
+        <div class="row">
+          <span class="role">Award Name</span>
+          <span class="when">2024</span>
+        </div>
+        <div class="org">Awarding Body</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© <span id="year"></span> Your Name — Built with HTML/CSS/JS, hosted on GitHub Pages.</div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>
