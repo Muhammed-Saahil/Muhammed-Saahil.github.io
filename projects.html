@@ -7,7 +7,7 @@
 <title>Projects — Muhammed Saahil</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=10" />
+<link rel="stylesheet" href="css/style.css?v=11" />
 </head>
 <body>
 
@@ -87,6 +87,27 @@
           <div class="card-links">
             <a href="https://zaki-092.itch.io/reversal-paradox" target="_blank" rel="noopener">Play on itch.io</a>
             <a href="assets/downloads/reversal-paradox-windows.zip" download>&#11015; Download (Windows)</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Stay With Me: Unity, incomplete prototype (movement + divider shader), playable on itch.io -->
+      <article class="card reveal" data-engine="unity" data-gallery="assets/images/staywithme-2.jpg,assets/images/staywithme-1.jpg" data-detail="Status: incomplete. Only the movement and the divider shader are done so far. I did the entire development and the technical art, including the divider shader.&#10;&#10;Stay With Me is a two-player co-op platformer where each player sees a different version of the same level. A dynamic divider separates the two sides, and each player only sees the platforms, obstacles and environment of their own side. Geometry from the other player's level is hidden, so a platform one player can stand on may not exist for the other.&#10;&#10;When a player crosses over, the divider rotates 180 degrees with them and their visual world follows. The shader therefore does not just mean left is Player 1 and right is Player 2: the game works out which side currently belongs to which player and updates the visual boundary to match.&#10;&#10;Gameplay state drives player orientation, which drives the divider state, which drives the shader parameters and finally the visible level. Players have incomplete information, so they must communicate, move, switch, adapt and coordinate to progress.">
+        <div class="card-thumb"><span class="thumb-label">Two Players &middot; Two Different Levels</span><img src="assets/images/staywithme-2.jpg" alt="Stay With Me split divider view" onerror="this.parentElement.innerHTML='&lt;span class=placeholder&gt;Stay With Me&lt;/span&gt;'"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="tag">Unity</span>
+            <span class="tag">2026</span>
+            <span class="tag">Development &middot; Technical Art</span>
+            <span class="tag">Work in Progress</span>
+          </div>
+          <h3>Stay With Me</h3>
+          <p>A two-player co-op platformer built around a dynamic divider: each player sees a different level, and the divider rotates 180&deg; when a player switches sides. I did the entire development and the technical art, including the divider shader. Currently incomplete, with only the movement and the shader done.</p>
+          <div class="media-actions">
+            <button class="media-btn" data-action="video" data-src="assets/video/staywithme-gameplay.mp4">&#9654; Watch gameplay</button>
+          </div>
+          <div class="card-links">
+            <a href="https://zaki-092.itch.io/stay-with-me" target="_blank" rel="noopener">&#127918; Play on itch.io</a>
           </div>
         </div>
       </article>
@@ -213,10 +234,10 @@
   <div class="wrap">© <span id="year"></span> Muhammed Saahil — Built with HTML/CSS/JS, hosted on GitHub Pages.</div>
 </footer>
 
-<script src="js/main.js?v=10"></script>
-<script src="js/engine.js?v=10"></script>
-<script src="js/vfx.js?v=10"></script>
-<script src="js/interactive.js?v=10"></script>
+<script src="js/main.js?v=11"></script>
+<script src="js/engine.js?v=11"></script>
+<script src="js/vfx.js?v=11"></script>
+<script src="js/interactive.js?v=11"></script>
 <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 </body>
 </html>
