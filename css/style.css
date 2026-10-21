@@ -1591,3 +1591,6 @@ footer { padding: 28px 0; border-top: 1px solid var(--line); font-size: 10px; te
 .skill-group:first-of-type { margin-top: 8px; }
 .skill-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
 .skill-group .skills { margin-top: 10px; }
+
+.resume-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+@media (max-width: 640px) { .resume-download { flex-direction: column; align-items: flex-start; gap: 16px; } }
