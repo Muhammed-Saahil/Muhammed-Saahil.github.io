@@ -2,35 +2,48 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
+<script>document.documentElement.classList.add("js");setTimeout(function(){if(!window.__fxReady)document.documentElement.classList.add("no-fx")},2500);</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Your Name — Game Developer &amp; Technical Artist</title>
 <meta name="description" content="Portfolio of Your Name, a game developer and technical artist working in Unity and Unreal Engine." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
+<div id="intro" aria-hidden="true">
+  <div class="boot-log" id="boot-log"></div>
+  <div class="boot-bar-track"><div class="boot-bar-fill" id="boot-bar"></div></div>
+  <div class="boot-title" id="boot-title">YOUR NAME — GAME DEV</div>
+  <div class="glitch-flash"></div>
+  <div class="intro-skip">Click or press any key to skip</div>
+</div>
+
 <nav class="nav">
   <div class="wrap">
-    <a class="nav-name" href="index.html">Your Name <span class="dot">/gamedev</span></a>
+    <a class="nav-name" href="index.html">Your Name<span class="dot">&#10035;</span>DEV</a>
     <button class="nav-toggle" aria-label="Toggle menu">MENU</button>
     <div class="nav-links">
       <a href="index.html" class="active">Home</a>
       <a href="index.html#about">About</a>
       <a href="projects.html">Projects</a>
+      <a href="playground.html">Playground</a>
       <a href="resume.html">Resume</a>
     </div>
+    <div class="availability"><span class="avail-dot"></span>OPEN TO WORK</div>
   </div>
 </nav>
 
-<header class="hero">
-  <div class="wrap">
+<header class="hero hero-home">
+  <div class="hero-bg"><canvas class="shader-canvas"></canvas></div>
+  <div class="wrap hero-split">
+    <div class="hero-copy">
     <p class="hero-tag">
       <span class="axis"><span></span><span></span><span></span></span>
       UNITY · UNREAL ENGINE · TECHNICAL ART
     </p>
-    <h1>I build gameplay systems and the tools that make them possible.</h1>
+    <h1>I build <span class="outline">gameplay systems</span> and the <span class="accent">tools</span> that make them possible.</h1>
     <p class="lead">
       I'm a game developer and technical artist bridging engineering and art —
       shipping gameplay features in Unity and Unreal, and building the shader,
@@ -41,14 +54,32 @@
       <a class="btn btn-ghost" href="resume.html">See Resume</a>
     </div>
   </div>
+    <div class="hx-stage" aria-hidden="true">
+      <div class="hx-grid"></div>
+      <div class="hx-ring"></div><div class="hx-ring r2"></div><div class="hx-ring r3"></div>
+      <div class="hx-core">
+        <div class="hx-cube">
+          <div class="hx-face f1"></div><div class="hx-face f2"></div><div class="hx-face f3"></div>
+          <div class="hx-face f4"></div><div class="hx-face f5"></div><div class="hx-face f6"></div>
+          <div class="hx-orb"></div>
+        </div>
+      </div>
+      <div class="hx-label l1"><b>01 / RUNTIME</b>SHADERS ONLINE</div>
+      <div class="hx-label l2"><b>02 / ENGINES</b>UNITY &middot; UNREAL 5</div>
+      <div class="hx-label l3"><b>03 / PIPELINE</b>MODEL &rarr; UV &rarr; TEXTURE</div>
+      <div class="hx-label l4"><b>STATUS</b>OPEN TO WORK &#9679;</div>
+    </div>
+  </div>
 </header>
+
+<div class="ticker" aria-hidden="true"><div class="ticker-track"><span class="hl">&#10035; GAMEPLAY PROGRAMMING /</span><span>TECHNICAL ART /</span><span class="hl">&#10035; REAL-TIME VFX /</span><span>UNITY /</span><span>UNREAL ENGINE 5 /</span><span class="hl">&#10035; 3D PIPELINE /</span><span>SHADERS /</span><span>TOOLS /</span><span class="hl">&#10035; GAMEPLAY PROGRAMMING /</span><span>TECHNICAL ART /</span><span class="hl">&#10035; REAL-TIME VFX /</span><span>UNITY /</span><span>UNREAL ENGINE 5 /</span><span class="hl">&#10035; 3D PIPELINE /</span><span>SHADERS /</span><span>TOOLS /</span></div></div>
 
 <section class="section" id="about">
   <div class="wrap">
-    <div class="section-head">
-      <h2>About</h2>
+    <div class="section-head reveal">
+      <div><span class="eyebrow">01 / ABOUT</span><h2>About</h2></div>
     </div>
-    <div class="about-grid">
+    <div class="about-grid reveal">
       <div class="about-photo">
         <img src="assets/images/profile.jpg" alt="Portrait of Your Name" onerror="this.parentElement.style.display='none'" />
       </div>
@@ -81,15 +112,48 @@
   </div>
 </section>
 
+<section class="section" id="systems">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><span class="eyebrow">02 / SHADER LAB</span><h2>Toon Shader</h2></div>
+      <span class="see-all" style="color:var(--text-1)">drag the model to move the light &middot; tweak anything</span>
+    </div>
+    <p class="reveal" style="color:var(--text-1); max-width:62ch; margin:-16px 0 28px;">
+      A stylised toon / cel shader running live in your browser. Change the light bands, edge softness, highlight, rim light and outline, or load a preset - the HLSL on the right updates as you go.
+    </p>
+
+    <div class="toon reveal" id="toon">
+      <div class="toon-view">
+        <canvas id="toonCanvas" width="640" height="640" aria-label="Toon shader preview. Drag to move the light."></canvas>
+        <div class="toon-hud"><span>TOON_LIT</span><span id="toonFps">LIVE</span></div>
+        <div class="toon-msg" id="toonMsg" hidden></div>
+      </div>
+      <div class="toon-panel">
+        <div class="toon-row toon-top">
+          <div class="toon-seg" id="toonShapes" role="group" aria-label="Model"></div>
+          <div class="toon-seg" id="toonPresets" role="group" aria-label="Presets"></div>
+        </div>
+        <div class="toon-controls" id="toonControls"></div>
+        <div class="toon-row toon-actions">
+          <button class="btn btn-ghost" id="toonSpin" type="button" aria-pressed="false">Auto-rotate</button>
+          <button class="btn btn-ghost" id="toonReset" type="button">Reset</button>
+          <button class="btn btn-ghost" id="toonCopy" type="button">Copy HLSL</button>
+        </div>
+      </div>
+      <div class="toon-code"><div class="toon-code-head">Toon_Lit.hlsl <span>live values</span></div><pre id="toonCode"></pre></div>
+    </div>
+  </div>
+</section>
+
 <section class="section">
   <div class="wrap">
-    <div class="section-head">
-      <h2>Featured Projects</h2>
+    <div class="section-head reveal">
+      <div><span class="eyebrow">03 / SELECTED WORK</span><h2>Featured Projects</h2></div>
       <a class="see-all" href="projects.html">ALL PROJECTS →</a>
     </div>
-    <div class="project-grid">
+    <div class="project-grid reveal-group">
 
-      <article class="card">
+      <article class="card reveal">
         <div class="card-thumb">
           <span class="thumb-label">PBR Shader Pipeline</span>
           <span class="placeholder">1280×800 project image</span>
@@ -107,7 +171,7 @@
         </div>
       </article>
 
-      <article class="card">
+      <article class="card reveal">
         <div class="card-thumb">
           <span class="thumb-label">Custom VFX Graph</span>
           <span class="placeholder">1280×800 project image</span>
@@ -126,7 +190,7 @@
         </div>
       </article>
 
-      <article class="card">
+      <article class="card reveal">
         <div class="card-thumb">
           <span class="thumb-label">Procedural Level Gen</span>
           <span class="placeholder">1280×800 project image</span>
@@ -150,14 +214,15 @@
 
 <section class="section contact">
   <div class="wrap">
-    <div class="section-head">
-      <h2>Get in touch</h2>
+   <div class="contact-panel reveal"><div class="contact-orb" aria-hidden="true"></div>
+    <div class="section-head reveal">
+      <div><span class="eyebrow">04 / CONTACT</span><h2>Get in touch</h2></div>
     </div>
-    <p style="color:var(--text-1); max-width:52ch;">
+    <p class="reveal" style="color:var(--text-1); max-width:52ch;">
       Open to opportunities in gameplay programming and technical art.
       Reach out by email or find me on the platforms below.
     </p>
-    <div class="contact-links">
+    <div class="contact-links reveal">
       <a class="icon-link" href="mailto:you@example.com" aria-label="Email" title="Email">
         <svg viewBox="0 0 24 24"><path d="M2 4h20v16H2V4zm2 2.2V18h16V6.2l-8 6.4-8-6.4zm.7-.2 7.3 5.84L19.3 6H4.7z"/></svg>
       </a>
@@ -170,6 +235,7 @@
         <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.25 2.36 4.25 5.44v6.3zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
       </a>
     </div>
+   </div>
   </div>
 </section>
 
@@ -178,6 +244,10 @@
 </footer>
 
 <script src="js/main.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/toon.js"></script>
+<script src="js/vfx.js"></script>
+<script src="js/interactive.js"></script>
 <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 </body>
 </html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<script>document.documentElement.classList.add("js");setTimeout(function(){if(!window.__fxReady)document.documentElement.classList.add("no-fx")},2500);</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Playground — Your Name</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="nav-name" href="index.html">Your Name<span class="dot">&#10035;</span>DEV</a>
+    <button class="nav-toggle" aria-label="Toggle menu">MENU</button>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#about">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="playground.html" class="active">Playground</a>
+      <a href="resume.html">Resume</a>
+    </div>
+    <div class="availability"><span class="avail-dot"></span>OPEN TO WORK</div>
+  </div>
+</nav>
+
+<header class="hero hero-sub">
+  <div class="hero-bg"><canvas class="shader-canvas"></canvas></div>
+  <div class="wrap">
+    <p class="hero-tag">
+      <span class="axis"><span></span><span></span><span></span></span>
+      PLAYGROUND
+    </p>
+    <h1>Touch the world. Then play it.</h1>
+  </div>
+</header>
+
+<section class="section" id="scene">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><span class="eyebrow">01 / LIVE SCENE</span><h2>Scene Builder</h2></div>
+      <span class="see-all" style="color:var(--text-1)">flip the switches &middot; click the scene</span>
+    </div>
+    <p class="reveal" style="color:var(--text-1); max-width:62ch; margin:-16px 0 28px;">
+      Change the time of day, add rain, turn the lights on or off and thicken the fog &mdash; like tweaking a small game level.
+      Click anywhere in the scene to walk the character there.
+    </p>
+
+    <div class="lab reveal">
+      <div class="sc-controls">
+        <div class="sc-head"><h3>Scene Builder</h3><span class="sc-pill">LIVE WORLD</span></div>
+
+        <div>
+          <div class="sc-label"><span>01 / TIME OF DAY</span><span id="scThemeLabel">DAYLIGHT</span></div>
+          <div class="sc-themes">
+            <button type="button" class="sc-theme active" data-sc-theme="day"><span class="ic">&#9728;&#65039;</span><b>Day</b><small>Clear / bright</small></button>
+            <button type="button" class="sc-theme" data-sc-theme="sunset"><span class="ic">&#127751;</span><b>Sunset</b><small>Warm / moody</small></button>
+            <button type="button" class="sc-theme" data-sc-theme="night"><span class="ic">&#127769;</span><b>Night</b><small>Cool / neon</small></button>
+          </div>
+        </div>
+
+        <div>
+          <div class="sc-toggle"><div><b>Rain</b><small>Animated rain over the scene</small></div><button type="button" class="sc-switch" id="scRain" aria-label="Toggle rain" aria-pressed="false"></button></div>
+          <div class="sc-toggle"><div><b>Glowing lights</b><small>Character and window glow on or off</small></div><button type="button" class="sc-switch active" id="scGlow" aria-label="Toggle glowing lights" aria-pressed="true"></button></div>
+        </div>
+
+        <div>
+          <div class="sc-label"><label for="scFog">02 / ATMOSPHERE FOG</label><output id="scFogVal">12%</output></div>
+          <input class="sc-range" id="scFog" type="range" min="0" max="70" value="12">
+          <div class="sc-scale"><span>CLEAR</span><span>MISTY</span><span>DENSE</span></div>
+        </div>
+
+        <div>
+          <div class="sc-label"><label for="scLight">03 / ENVIRONMENT LIGHT</label><output id="scLightVal">80%</output></div>
+          <input class="sc-range" id="scLight" type="range" min="25" max="120" value="80">
+          <div class="sc-note">Try Night with the glow off, then switch the lights back on to see the difference.</div>
+        </div>
+
+        <button type="button" class="btn sc-reset" id="scReset">&#8635; Reset scene</button>
+      </div>
+
+      <div class="sc-preview">
+        <div class="sc-world" id="scWorld" data-theme="day" data-rain="off" data-glow="on">
+          <div class="sc-stars"></div><div class="sc-sun"></div><div class="sc-cloud"></div>
+          <div class="sc-hill far"></div><div class="sc-hill near"></div>
+          <div class="sc-city">
+            <div class="sc-building" style="--height:52%"></div><div class="sc-building" style="--height:85%"></div>
+            <div class="sc-building" style="--height:68%"></div><div class="sc-building" style="--height:100%"></div>
+            <div class="sc-building" style="--height:60%"></div><div class="sc-building" style="--height:77%"></div>
+            <div class="sc-building" style="--height:45%"></div>
+          </div>
+          <div class="sc-ground"></div><div class="sc-path"></div><div class="sc-lights"></div>
+          <div class="sc-hero" id="scHero"><div class="head"></div><div class="body"></div><div class="legs"></div></div>
+          <div class="sc-fog"></div><div class="sc-rain"></div>
+          <div class="sc-badge"><b>LEVEL PREVIEW / 01</b><span id="scBadge">SUNNY OUTPOST</span></div>
+          <div class="sc-bottom">
+            <div><strong id="scTitle">Sunny outpost</strong><span id="scSub">Daylight &middot; clear atmosphere</span></div>
+            <div class="hint">CLICK THE SCENE<br>TO MOVE THE CHARACTER</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="play" style="border-bottom:none;">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><span class="eyebrow">02 / MINI GAME</span><h2>Neon Collector</h2></div>
+      <span class="see-all" style="color:var(--text-1)">WASD / arrows &middot; or drag</span>
+    </div>
+    <p class="reveal" style="color:var(--text-1); max-width:62ch; margin:-16px 0 28px;">
+      A tiny playable demo. Collect all five energy orbs to activate the portal. Use WASD or the arrow keys &mdash; on a touch screen, press and drag inside the arena.
+    </p>
+
+    <div class="mg reveal">
+      <div class="mg-bar"><span>DEMO_001 / NEON COLLECTOR</span><span>SCORE <strong id="mgScore">00 / 05</strong></span><span id="mgStatus">READY</span></div>
+      <div class="mg-arena" id="mgArena" tabindex="0" aria-label="Neon Collector game arena">
+        <div class="mg-player" id="mgPlayer"></div>
+        <div class="mg-hint">MOVE WITH WASD / ARROWS &middot; COLLECT THE ENERGY ORBS</div>
+        <div class="mg-overlay" id="mgOverlay">
+          <div>
+            <div class="eyebrow">INTERACTIVE BUILD</div>
+            <h3 id="mgOvTitle">Can you collect them all?</h3>
+            <p id="mgOvText"></p>
+            <button type="button" class="btn" id="mgStart">Start demo &#9655;</button>
+          </div>
+        </div>
+      </div>
+      <div class="mg-controls">
+        <span class="mg-key">W &uarr;</span><span class="mg-key">A &larr;</span><span class="mg-key">S &darr;</span><span class="mg-key">D &rarr;</span>
+        <span class="mg-note">or use the arrow keys</span>
+        <button type="button" class="btn mg-reset" id="mgReset">Reset &#8635;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© <span id="year"></span> Your Name — Built with HTML/CSS/JS, hosted on GitHub Pages.</div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/vfx.js"></script>
+<script src="js/interactive.js"></script>
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>

@@ -2,41 +2,45 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
+<script>document.documentElement.classList.add("js");setTimeout(function(){if(!window.__fxReady)document.documentElement.classList.add("no-fx")},2500);</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Resume — Your Name</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
 <nav class="nav">
   <div class="wrap">
-    <a class="nav-name" href="index.html">Your Name <span class="dot">/gamedev</span></a>
+    <a class="nav-name" href="index.html">Your Name<span class="dot">&#10035;</span>DEV</a>
     <button class="nav-toggle" aria-label="Toggle menu">MENU</button>
     <div class="nav-links">
       <a href="index.html">Home</a>
       <a href="index.html#about">About</a>
       <a href="projects.html">Projects</a>
+      <a href="playground.html">Playground</a>
       <a href="resume.html" class="active">Resume</a>
     </div>
+    <div class="availability"><span class="avail-dot"></span>OPEN TO WORK</div>
   </div>
 </nav>
 
-<header class="hero" style="padding-bottom:40px;">
+<header class="hero hero-sub">
+  <div class="hero-bg"><canvas class="shader-canvas"></canvas></div>
   <div class="wrap">
     <p class="hero-tag">
       <span class="axis"><span></span><span></span><span></span></span>
       RESUME
     </p>
-    <h1 style="max-width:20ch; font-size:clamp(2rem,4vw,2.8rem);">Experience, education, and skills.</h1>
+    <h1>Experience, education, and skills.</h1>
   </div>
 </header>
 
 <section class="section" style="border-bottom:none;">
   <div class="wrap">
 
-    <div class="resume-download">
+    <div class="resume-download reveal">
       <div>
         <strong>Prefer a PDF?</strong>
         <div style="color:var(--text-1); font-size:0.9rem;">Download a copy to send directly to recruiters.</div>
@@ -44,7 +48,7 @@
       <a class="btn btn-primary" href="assets/resume/resume.pdf" download>Download PDF</a>
     </div>
 
-    <div class="resume-block">
+    <div class="resume-block reveal">
       <h2>Experience</h2>
 
       <div class="resume-item">
@@ -72,7 +76,7 @@
       </div>
     </div>
 
-    <div class="resume-block">
+    <div class="resume-block reveal">
       <h2>Education</h2>
       <div class="resume-item">
         <div class="row">
@@ -83,7 +87,7 @@
       </div>
     </div>
 
-    <div class="resume-block">
+    <div class="resume-block reveal">
       <h2>Skills</h2>
       <div class="skills">
         <span>Unity</span>
@@ -98,7 +102,7 @@
       </div>
     </div>
 
-    <div class="resume-block">
+    <div class="resume-block reveal">
       <h2>Awards</h2>
       <div class="resume-item">
         <div class="row">
@@ -117,6 +121,9 @@
 </footer>
 
 <script src="js/main.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/vfx.js"></script>
+<script src="js/interactive.js"></script>
 <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 </body>
 </html>

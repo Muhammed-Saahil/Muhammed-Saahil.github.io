@@ -6,9 +6,14 @@ Plain HTML/CSS/JS. No build step, no framework — open `index.html` directly or
 ```
 index.html            Home page (hero, about, featured projects, contact)
 projects.html         Full project grid with filters
+playground.html       Interactive page: Scene Builder + Neon Collector mini-game
 resume.html           Resume / CV page
 css/style.css         All styling (one file, used by every page)
-js/main.js            Mobile nav + project filter + video/play toggle behavior
+js/main.js            Mobile nav, intro, scroll animations, project filter, video/play toggle
+js/engine.js          Hero WebGL shader
+js/toon.js            Toon Shader lab (live, tweakable)
+js/vfx.js             Game VFX: particles, cursor sparks, click bursts, glitch headline, card tilt, XP scroll bar
+js/interactive.js     Hero 3D object, magnetic buttons, project detail panel, Scene Builder, mini-game
 assets/images/        Your photo and project screenshots
 assets/video/         Gameplay video files (.mp4)
 assets/games/         Self-hosted playable web builds (WebGL/HTML5 exports)
@@ -89,22 +94,59 @@ In `index.html`, inside `<section class="section contact">`:
 - LinkedIn icon: same pattern, comment right above `href="#"`.
 
 ### 8. Colors and fonts (site-wide)
-At the very top of `css/style.css`, inside `:root { ... }`:
+The whole site uses a dark "game studio" theme: near-black background, mint / cyan / violet accents, Inter headings, monospace labels, pill buttons, rounded panels. At the very top of `css/style.css`, inside `:root { ... }`:
 ```css
---bg-0: #17191d;     /* page background */
---bg-1: #1f2228;     /* card/panel background */
---line: #2c3038;     /* borders, grid lines, hairlines */
---text-0: #eaeae4;   /* primary text */
---text-1: #9aa0ac;   /* secondary/muted text */
---axis-x: #e5484d;   /* red accent */
---axis-y: #4cc38a;   /* green accent */
---axis-z: #3b9eff;   /* blue accent (used for links/hover) */
+--bg-0: #080a0e;     /* page background */
+--bg-1: #10141b;     /* card/panel background */
+--text-0: #f4f7fb;   /* primary text */
+--text-1: #8c98a9;   /* secondary/muted text */
+--accent: #a6ffcb;   /* mint - buttons, highlights, glow */
+--cyan:   #66e8ff;
+--violet: #9f85ff;
 ```
-Change any of these hex values and it updates everywhere on every page. Fonts are set right below as `--font-display` (headings/body) and `--font-mono` (technical labels, tags, buttons) — swap the Google Fonts `<link>` in each `.html` `<head>` if you pick different typefaces.
+Change a hex value and it updates everywhere. Fonts: `--font-display` (Inter) and `--font-mono`; the Inter `<link>` is in each `.html` `<head>`. The component styling (nav, hero, buttons, cards, panels, footer) is in the "Reference theme layer" block at the very bottom of `css/style.css`.
+
+**Small theme bits in the HTML**
+- Nav brand: `Your Name<span class="dot">&#10035;</span>DEV` in each page's `<nav>`. The green pill on the right (`<div class="availability">OPEN TO WORK</div>`) is your availability status - edit or delete it.
+- Hero headline words: wrap words in `<span class="outline">` (outlined) or `<span class="accent">` (mint) in `index.html`.
+- Small mono labels above section titles (`01 / ABOUT`): the `<span class="eyebrow">` inside each `section-head`.
+- Project numbers (`PROJECT_001`...) are added automatically by CSS.
+- Contact panel: the big rounded box with the orb in `index.html` (`.contact-panel`).
+- The floating particle network behind the page is `initNetwork()` in `js/interactive.js`.
 
 ### 9. Navigation menu / footer text
 - Nav links: the `<div class="nav-links">` block near the top of each `.html` file — add/remove/reorder `<a>` tags.
 - Footer copyright line: bottom of each `.html` file, inside `<footer>`.
+
+### 10. Engine-style visuals (hero shader + Toon Shader lab)
+**Hero shader** - the swirling teal/violet/mint "energy plasma" behind every hero is a WebGL fragment shader (domain-warped noise with glowing veins and a ripple that follows your cursor). Edit it in `js/engine.js`, section 1: the `fsSrc` array is the GLSL code. Easy knobs: the three `vec3(...)` colours near `col = mix(...)`, `420.0` (size of the swirls in px), `26.0` / `30.0` (vein sharpness), and the final `a * 0.85` (overall brightness). It renders at half resolution and lowers itself further if the frame rate drops. If WebGL isn't available it quietly falls back to the CSS light show.
+
+**Toon Shader lab** ("Toon Shader" section on the home page, `js/toon.js`) - a live, tweakable toon/cel shader. Visitors can drag the model to move the light, pick a model (sphere/torus/cube/blob), load a preset, and change colours, light bands, shadow threshold, edge softness, highlight, rim light, outline and halftone shadows. The HLSL panel underneath updates with the values and has a Copy button.
+- Starting look: `DEFAULTS` at the top of `js/toon.js`. Presets: `PRESETS`. Which sliders appear (and their ranges): `CONTROLS`. Models: `SHAPES` plus the `map()` function inside the GLSL string `FS_SRC`.
+- To match **your own** toon shader, edit the lighting maths in `FS_SRC` (the `main()` function) and the matching HLSL text in `updateCode()`; add a slider by adding one line to `CONTROLS` and one `uniform` + `loc` entry.
+- Title/intro text: the `#systems` section in `index.html`.
+
+### 11. Game VFX (`js/vfx.js` + bottom of `css/style.css`)
+- **Floating energy motes, cursor spark trail, click shockwave + burst** - one particle canvas (`#fx`). Tweak in `js/vfx.js`: `moteCount` (how many floating glows), the `COLORS` array, burst size in the `pointerdown` handler (`i < 28`).
+- **Glitch headline** - fires every few seconds and on hover. Change timing in `initGlitch()`; colours in the `glitchA` / `glitchB` keyframes in CSS.
+- **Card tilt + glare** - project cards tilt toward your cursor. Strength is the `-9` / `9` in `initTilt()`.
+- **XP scroll bar** - the gradient bar at the very top. Style it via `.xp-bar` in CSS.
+- **Always-on CSS effects** (work even if scripts are blocked): the drifting blue/red/green aurora lights in the hero (`auroraA/B/C`), the vignette + scanline overlay (`body::after`), the scan beam on project thumbnails (`.card-thumb::before`), the pulsing primary button.
+- **Too much?** Delete `<script src="js/vfx.js"></script>` from a page to remove all particles/tilt/glitch/XP bar. To drop the scanlines/vignette, delete the `body::after` rule. All effects are skipped for visitors with "reduce motion" turned on.
+
+**Safety nets**: if scripts are blocked or crash, a failsafe (`no-fx` class, set by a tiny script in each page's `<head>`) makes all content visible after ~2.5 seconds so the page can never stay blank.
+
+### 12. Interactive features (Playground page, hero object, project panel)
+All of the behaviour is in `js/interactive.js`; the look is the "Interactive layer" block at the bottom of `css/style.css`.
+
+- **Hero 3D object (home page)** - the rotating glass cube with floating labels beside the headline. It tilts toward your cursor. Edit the four label texts in `index.html` (`<div class="hx-label l1">` ... `l4`). To remove it, delete the `<div class="hx-stage">...</div>` block (the hero collapses back to one column automatically).
+- **Ticker strip (home page)** - the scrolling keyword bar under the hero (`<div class="ticker">`). Each `<span>` is one keyword; the list appears twice so the loop is seamless - when you edit it, **change both copies**. Speed: `30s` in `.ticker-track` (CSS). `class="hl"` makes a keyword blue.
+- **Magnetic buttons** - the two hero buttons lean toward your cursor. Add `class="magnetic"` to any other button/link to get the same effect.
+- **Project detail panel** - click any project card (or its **Details** link) to open a larger panel with the thumbnail, tags, description and your video / play / download / source buttons. It reads everything from the card itself, so **new cards work automatically** - no extra setup. For a longer write-up in the panel, add `data-detail="Your longer text..."` to the card's `<article>` tag. Press Esc or click outside to close.
+- **Playground page (`playground.html`)**
+  - *Scene Builder*: time of day, rain, glowing lights, fog and environment light change a small game world live; clicking the scene walks the character there. The scene names/text are in the `THEMES` object in `js/interactive.js`; the colours per time of day are the `.sc-world[data-theme=...]` rules in the CSS.
+  - *Neon Collector*: a mini-game (WASD / arrows, or press-and-drag on touch screens). Tweak it in `initGame()`: `SPOTS` (orb positions as % of the arena - add or remove pairs to change the count, then update `05` in the score text), `SPEED` (movement speed).
+  - Page text lives in `playground.html`. The nav link to it is in each page's `<nav>`; delete that one `<a>` line (and the file) if you don't want the page.
 
 ---
 

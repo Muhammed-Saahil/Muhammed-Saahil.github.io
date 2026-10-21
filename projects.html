@@ -2,40 +2,44 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
+<script>document.documentElement.classList.add("js");setTimeout(function(){if(!window.__fxReady)document.documentElement.classList.add("no-fx")},2500);</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Projects — Your Name</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
 <nav class="nav">
   <div class="wrap">
-    <a class="nav-name" href="index.html">Your Name <span class="dot">/gamedev</span></a>
+    <a class="nav-name" href="index.html">Your Name<span class="dot">&#10035;</span>DEV</a>
     <button class="nav-toggle" aria-label="Toggle menu">MENU</button>
     <div class="nav-links">
       <a href="index.html">Home</a>
       <a href="index.html#about">About</a>
       <a href="projects.html" class="active">Projects</a>
+      <a href="playground.html">Playground</a>
       <a href="resume.html">Resume</a>
     </div>
+    <div class="availability"><span class="avail-dot"></span>OPEN TO WORK</div>
   </div>
 </nav>
 
-<header class="hero" style="padding-bottom:40px;">
+<header class="hero hero-sub">
+  <div class="hero-bg"><canvas class="shader-canvas"></canvas></div>
   <div class="wrap">
     <p class="hero-tag">
       <span class="axis"><span></span><span></span><span></span></span>
       PROJECTS
     </p>
-    <h1 style="max-width:20ch; font-size:clamp(2rem,4vw,2.8rem);">Things I've built, shipped, and prototyped.</h1>
+    <h1>Things I've built, shipped, and prototyped.</h1>
   </div>
 </header>
 
 <section class="section" style="border-bottom:none;">
   <div class="wrap">
-    <div class="filters">
+    <div class="filters reveal">
       <button class="active" data-filter="all">All</button>
       <button data-filter="unreal">Unreal Engine</button>
       <button data-filter="unity">Unity</button>
@@ -43,10 +47,10 @@
       <button data-filter="tools">Tools &amp; Tech Art</button>
     </div>
 
-    <div class="project-grid">
+    <div class="project-grid reveal-group">
 
       <!-- Example: project with BOTH a gameplay video and an in-browser playable build -->
-      <article class="card" data-engine="unreal">
+      <article class="card reveal" data-engine="unreal">
         <div class="card-thumb"><span class="thumb-label">PBR Shader Pipeline</span><img src="assets/images/project1.jpg" alt="Project Title One screenshot" onerror="this.parentElement.innerHTML='&lt;span class=placeholder&gt;1280×800 project image&lt;/span&gt;'"></div>
         <div class="card-body">
           <div class="card-meta">
@@ -67,7 +71,7 @@
       </article>
 
       <!-- Example: video only, not web-playable -->
-      <article class="card" data-engine="unity">
+      <article class="card reveal" data-engine="unity">
         <div class="card-thumb"><span class="thumb-label">Custom VFX Graph</span><img src="assets/images/project2.jpg" alt="Project Title Two screenshot" onerror="this.parentElement.innerHTML='&lt;span class=placeholder&gt;1280×800 project image&lt;/span&gt;'"></div>
         <div class="card-body">
           <div class="card-meta">
@@ -87,7 +91,7 @@
         </div>
       </article>
 
-      <article class="card" data-engine="jam unity">
+      <article class="card reveal" data-engine="jam unity">
         <div class="card-thumb"><span class="thumb-label">Procedural Level Gen</span><span class="placeholder">1280×800 project image</span></div>
         <div class="card-body">
           <div class="card-meta">
@@ -104,7 +108,7 @@
         </div>
       </article>
 
-      <article class="card" data-engine="tools unreal">
+      <article class="card reveal" data-engine="tools unreal">
         <div class="card-thumb"><span class="thumb-label">Editor Tool / Blueprint</span><span class="placeholder">1280×800 project image</span></div>
         <div class="card-body">
           <div class="card-meta">
@@ -129,6 +133,9 @@
 </footer>
 
 <script src="js/main.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/vfx.js"></script>
+<script src="js/interactive.js"></script>
 <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 </body>
 </html>
