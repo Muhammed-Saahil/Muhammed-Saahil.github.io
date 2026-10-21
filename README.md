@@ -18,7 +18,7 @@ assets/images/        Your photo and project screenshots
 assets/video/         Gameplay video files (.mp4)
 assets/games/         Self-hosted playable web builds (WebGL/HTML5 exports)
 assets/downloads/     Downloadable builds (.zip) for non-web platforms
-assets/resume/        Your resume.pdf
+assets/resume/        Muhammed_Saahil_Resume.pdf (the Download PDF button)
 ```
 
 Every page pulls from the same `css/style.css` and `js/main.js` — edit those once and the change applies everywhere.
@@ -83,7 +83,7 @@ Put the actual `.zip` in `assets/downloads/`. **GitHub has a 100MB per-file limi
 
 ### 6. Resume page
 Everything is in `resume.html`, inside `<section class="section">`:
-- **PDF download button:** points to `assets/resume/resume.pdf` — export your resume there.
+- **PDF download button:** points to `assets/resume/Muhammed_Saahil_Resume.pdf`; replace that file to update it.
 - **Experience / Education / Awards:** each entry is a `.resume-item` block — copy one to add a new job/degree/award, edit the role, org, dates, and bullet list.
 - **Skills:** same `.skills` pill list as the About section — edit independently (it's a separate list on this page).
 

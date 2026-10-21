@@ -1585,3 +1585,9 @@ footer { padding: 28px 0; border-top: 1px solid var(--line); font-size: 10px; te
 .pm-thumb:hover, .pm-thumb:focus-visible { border-color: var(--accent); }
 .pm-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .pm-box p.pm-detail { max-width: none; white-space: pre-line; }
+
+/* ---------- Resume skill groups ---------- */
+.skill-group { margin-top: 22px; }
+.skill-group:first-of-type { margin-top: 8px; }
+.skill-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+.skill-group .skills { margin-top: 10px; }
