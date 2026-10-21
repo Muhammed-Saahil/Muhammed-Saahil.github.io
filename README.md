@@ -107,7 +107,7 @@ The whole site uses a dark "game studio" theme: near-black background, mint / cy
 Change a hex value and it updates everywhere. Fonts: `--font-display` (Inter) and `--font-mono`; the Inter `<link>` is in each `.html` `<head>`. The component styling (nav, hero, buttons, cards, panels, footer) is in the "Reference theme layer" block at the very bottom of `css/style.css`.
 
 **Small theme bits in the HTML**
-- Nav brand: `Your Name<span class="dot">&#10035;</span>DEV` in each page's `<nav>`. The green pill on the right (`<div class="availability">OPEN TO WORK</div>`) is your availability status - edit or delete it.
+- Nav brand: `Muhammed Saahil` in each page's `<nav class="nav-name">`. The green pill on the right (`<div class="availability">OPEN TO WORK</div>`) is your availability status - edit or delete it.
 - Hero headline words: wrap words in `<span class="outline">` (outlined) or `<span class="accent">` (mint) in `index.html`.
 - Small mono labels above section titles (`01 / ABOUT`): the `<span class="eyebrow">` inside each `section-head`.
 - Project numbers (`PROJECT_001`...) are added automatically by CSS.
