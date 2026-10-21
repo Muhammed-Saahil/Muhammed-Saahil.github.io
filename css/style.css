@@ -1561,3 +1561,11 @@ footer { padding: 28px 0; border-top: 1px solid var(--line); font-size: 10px; te
   .toon { grid-template-columns: 1fr; grid-template-areas: "view" "panel" "code"; }
   .toon-ctl, .toon-ctl.color { grid-template-columns: 112px minmax(0, 1fr) 46px; }
 }
+
+/* About: full-width paragraph text (photo is optional) */
+.about-grid { display: flex; gap: 40px; align-items: flex-start; padding: 40px; border: 1px solid var(--line); border-radius: 22px; background: linear-gradient(145deg, #131922, #0c1015); }
+.about-photo { flex: 0 0 200px; }
+.about-text { flex: 1 1 0; min-width: 0; }
+.about-text p { max-width: none; font-size: 16px; line-height: 1.85; color: #aab4c0; margin: 0 0 20px; }
+.about-text p strong { color: var(--text-0); }
+@media (max-width: 640px) { .about-grid { flex-direction: column; padding: 24px; gap: 24px; } .about-photo { flex-basis: auto; width: 140px; } }
