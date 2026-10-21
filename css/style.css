@@ -1569,3 +1569,11 @@ footer { padding: 28px 0; border-top: 1px solid var(--line); font-size: 10px; te
 .about-text p { max-width: none; font-size: 16px; line-height: 1.85; color: #aab4c0; margin: 0 0 20px; }
 .about-text p strong { color: var(--text-0); }
 @media (max-width: 640px) { .about-grid { flex-direction: column; padding: 24px; gap: 24px; } .about-photo { flex-basis: auto; width: 140px; } }
+
+/* About: always one full-width block */
+.about-grid { display: block; width: 100%; }
+.about-grid .about-photo { float: left; width: 180px; margin: 0 32px 16px 0; }
+.about-text { width: 100%; }
+.about-text p { width: 100%; max-width: none; text-align: left; }
+.skills { clear: both; }
+@media (max-width: 640px) { .about-grid .about-photo { float: none; margin: 0 0 20px; } }
