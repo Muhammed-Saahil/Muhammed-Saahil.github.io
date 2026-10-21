@@ -61,6 +61,7 @@
         tags: Array.prototype.map.call(card.querySelectorAll(".card-meta .tag"), function (t) { return t.textContent.trim(); }),
         desc: desc ? desc.textContent.trim() : "",
         detail: card.getAttribute("data-detail") || "",
+        gallery: (card.getAttribute("data-gallery") || "").split(",").filter(Boolean),
         img: img ? img.getAttribute("src") : "",
         media: Array.prototype.map.call(card.querySelectorAll(".media-btn[data-action]"), function (b) {
           return { action: b.dataset.action, src: b.dataset.src, text: b.textContent.trim() };
@@ -82,7 +83,7 @@
       }
     });
 
-    var modal = null, box, closeBtn, eyebrowEl, titleEl, tagsEl, mediaEl, descEl, detailEl, actionsEl;
+    var modal = null, box, closeBtn, eyebrowEl, titleEl, tagsEl, mediaEl, descEl, detailEl, actionsEl, galleryEl;
     var lastFocus = null;
 
     function build() {
@@ -94,7 +95,7 @@
         '<button class="pm-close" type="button" aria-label="Close">×</button>' +
         '<div class="pm-eyebrow"></div><h2 id="pm-title"></h2>' +
         '<div class="pm-tags"></div><div class="pm-media"></div>' +
-        '<p class="pm-desc"></p><p class="pm-detail"></p><div class="pm-actions"></div></div>';
+        '<div class="pm-gallery"></div><p class="pm-desc"></p><p class="pm-detail"></p><div class="pm-actions"></div></div>';
       document.body.appendChild(modal);
       box = modal.querySelector(".pm-box");
       closeBtn = modal.querySelector(".pm-close");
@@ -104,6 +105,7 @@
       mediaEl = modal.querySelector(".pm-media");
       descEl = modal.querySelector(".pm-desc");
       detailEl = modal.querySelector(".pm-detail");
+      galleryEl = modal.querySelector(".pm-gallery");
       actionsEl = modal.querySelector(".pm-actions");
       closeBtn.addEventListener("click", close);
       modal.addEventListener("click", function (e) { if (e.target === modal) close(); });
@@ -135,6 +137,27 @@
         im.onerror = function () { im.remove(); };
         im.src = d.img;
         mediaEl.appendChild(im);
+      }
+
+      galleryEl.innerHTML = "";
+      if (d.gallery.length > 1) {
+        d.gallery.forEach(function (src, i) {
+          var t = document.createElement("button");
+          t.type = "button";
+          t.className = "pm-thumb";
+          t.setAttribute("aria-label", "Show screenshot " + (i + 1));
+          var ti = document.createElement("img");
+          ti.src = src; ti.alt = "";
+          t.appendChild(ti);
+          t.addEventListener("click", function () {
+            mediaEl.innerHTML = "";
+            var big = document.createElement("img");
+            big.alt = d.title + " screenshot " + (i + 1);
+            big.src = src;
+            mediaEl.appendChild(big);
+          });
+          galleryEl.appendChild(t);
+        });
       }
 
       actionsEl.innerHTML = "";

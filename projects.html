@@ -7,7 +7,7 @@
 <title>Projects — Muhammed Saahil</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=3" />
+<link rel="stylesheet" href="css/style.css?v=4" />
 </head>
 <body>
 
@@ -48,6 +48,24 @@
     </div>
 
     <div class="project-grid reveal-group">
+
+      <!-- GRID-LOCKED: video only (not finished, so no play-in-browser and no download) -->
+      <article class="card reveal" data-engine="unreal" data-detail="Designed, programmed and animated entirely by me. Multiplayer is the core of the game: 2 to 4 players share one fixed screen on local couch co-op. On launch the game scans for connected XInput gamepads through Unreal's Local Multiplayer Subsystem, and one button press starts a 3-second countdown, spawns exactly as many robots as there are controllers, and gives each player a random neon colour. A 15x15 isometric grid is the battlefield: players paint tiles by standing on them, slide on rival turf with low-friction physics, dash with a 3-second cooldown, rip tiles out of the floor and throw them at each other, and wrap around the screen edges Pac-Man style. Direct hits, mid-air projectile clashes, concussions and knockback are all resolved in a shared ruleset, and a dynamic camera keeps every player in frame. The match then escalates through three phases: Turf War, an Overclock sudden-death collapse of the arena edge, and an asymmetric Crown Royale where the territory winner becomes the System Overlord (with a Firewall Pulse shockwave to repel dashes) while everyone else returns as Glitch Phantoms trying to steal the crown. Built with Blueprints, Enhanced Input (45-degree isometric input mapping), Niagara VFX, Chaos destruction and a 60 FPS lock for consistent local input." data-gallery="assets/images/gridlocked-1.jpg,assets/images/gridlocked-2.jpg,assets/images/gridlocked-3.jpg">
+        <div class="card-thumb"><span class="thumb-label">Local Multiplayer &middot; Gameplay Systems</span><img src="assets/images/gridlocked-1.jpg" alt="GRID-LOCKED gameplay screenshot" onerror="this.parentElement.innerHTML='&lt;span class=placeholder&gt;GRID-LOCKED&lt;/span&gt;'"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="tag">Unreal Engine 5</span>
+            <span class="tag">2026</span>
+            <span class="tag">In Development</span>
+          </div>
+          <h3>GRID-LOCKED: The 99-Tile Blitz</h3>
+          <p>A 2.5D isometric couch co-op brawler for 2 to 4 players on one screen. Plug in gamepads and the game detects them, assigns each player a neon colour and drops everyone into a three-phase match: a territory turf war, a sudden-death Overclock, and an asymmetric Crown Royale. Game design, gameplay programming and animation all done by me.</p>
+          <div class="media-actions">
+            <button class="media-btn" data-action="video" data-src="assets/video/gridlocked-gameplay.mp4">&#9654; Watch gameplay</button>
+          </div>
+          <div class="card-links"></div>
+        </div>
+      </article>
 
       <!-- Example: project with BOTH a gameplay video and an in-browser playable build -->
       <article class="card reveal" data-engine="unreal">
@@ -132,10 +150,10 @@
   <div class="wrap">© <span id="year"></span> Muhammed Saahil — Built with HTML/CSS/JS, hosted on GitHub Pages.</div>
 </footer>
 
-<script src="js/main.js?v=3"></script>
-<script src="js/engine.js?v=3"></script>
-<script src="js/vfx.js?v=3"></script>
-<script src="js/interactive.js?v=3"></script>
+<script src="js/main.js?v=4"></script>
+<script src="js/engine.js?v=4"></script>
+<script src="js/vfx.js?v=4"></script>
+<script src="js/interactive.js?v=4"></script>
 <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 </body>
 </html>

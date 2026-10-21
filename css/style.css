@@ -1577,3 +1577,11 @@ footer { padding: 28px 0; border-top: 1px solid var(--line); font-size: 10px; te
 .about-text p { width: 100%; max-width: none; text-align: left; }
 .skills { clear: both; }
 @media (max-width: 640px) { .about-grid .about-photo { float: none; margin: 0 0 20px; } }
+
+/* Project panel: screenshot strip + multi-paragraph detail */
+.pm-gallery { display: flex; gap: 8px; margin: -6px 0 16px; flex-wrap: wrap; }
+.pm-gallery:empty { display: none; }
+.pm-thumb { width: 92px; height: 56px; padding: 0; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #000; cursor: pointer; transition: border-color .2s; }
+.pm-thumb:hover, .pm-thumb:focus-visible { border-color: var(--accent); }
+.pm-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.pm-box p.pm-detail { max-width: none; white-space: pre-line; }
