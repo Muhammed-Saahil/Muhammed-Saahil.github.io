@@ -8,7 +8,7 @@
 <meta name="description" content="Portfolio of Muhammed Saahil, a game developer and technical artist working in Unity and Unreal Engine." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=40" />
+<link rel="stylesheet" href="css/style.css?v=41" />
 </head>
 <body>
 
@@ -28,7 +28,6 @@
       <a href="index.html" class="active">Home</a>
       <a href="index.html#about">About</a>
       <a href="projects.html">Projects</a>
-      <a href="playground.html">Playground</a>
       <a href="resume.html">Resume</a>
     </div>
     <div class="availability"><span class="avail-dot"></span>OPEN TO WORK</div>
@@ -141,43 +140,10 @@
   </div>
 </section>
 
-<section class="section" id="systems">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <div><span class="eyebrow">02 / SHADER LAB</span><h2>Toon Shader</h2></div>
-      <span class="see-all" style="color:var(--text-1)">drag the model to move the light &middot; tweak anything</span>
-    </div>
-    <p class="reveal" style="color:var(--text-1); max-width:62ch; margin:-16px 0 28px;">
-      A stylised toon / cel shader running live in your browser. Change the light bands, edge softness, highlight, rim light and outline, or load a preset - the HLSL on the right updates as you go.
-    </p>
-
-    <div class="toon reveal" id="toon">
-      <div class="toon-view">
-        <canvas id="toonCanvas" width="640" height="640" aria-label="Toon shader preview. Drag to move the light."></canvas>
-        <div class="toon-hud"><span>TOON_LIT</span><span id="toonFps">LIVE</span></div>
-        <div class="toon-msg" id="toonMsg" hidden></div>
-      </div>
-      <div class="toon-panel">
-        <div class="toon-row toon-top">
-          <div class="toon-seg" id="toonShapes" role="group" aria-label="Model"></div>
-          <div class="toon-seg" id="toonPresets" role="group" aria-label="Presets"></div>
-        </div>
-        <div class="toon-controls" id="toonControls"></div>
-        <div class="toon-row toon-actions">
-          <button class="btn btn-ghost" id="toonSpin" type="button" aria-pressed="false">Auto-rotate</button>
-          <button class="btn btn-ghost" id="toonReset" type="button">Reset</button>
-          <button class="btn btn-ghost" id="toonCopy" type="button">Copy HLSL</button>
-        </div>
-      </div>
-      <div class="toon-code"><div class="toon-code-head">Toon_Lit.hlsl <span>live values</span></div><pre id="toonCode"></pre></div>
-    </div>
-  </div>
-</section>
-
 <section class="section">
   <div class="wrap">
     <div class="section-head reveal">
-      <div><span class="eyebrow">03 / SELECTED WORK</span><h2>Featured Projects</h2></div>
+      <div><span class="eyebrow">02 / SELECTED WORK</span><h2>Featured Projects</h2></div>
     </div>
     <div class="project-grid reveal-group">
 
@@ -255,7 +221,7 @@
   <div class="wrap">
    <div class="contact-panel reveal"><div class="contact-orb" aria-hidden="true"></div>
     <div class="section-head reveal">
-      <div><span class="eyebrow">04 / CONTACT</span><h2>Get in touch</h2></div>
+      <div><span class="eyebrow">03 / CONTACT</span><h2>Get in touch</h2></div>
     </div>
     <p class="reveal" style="color:var(--text-1); max-width:52ch;">
       Open to opportunities in gameplay programming and technical art.
@@ -285,11 +251,10 @@
   <div class="wrap">© <span id="year"></span> Muhammed Saahil — Built with HTML/CSS/JS, hosted on GitHub Pages.</div>
 </footer>
 
-<script src="js/main.js?v=40"></script>
-<script src="js/engine.js?v=40"></script>
-<script src="js/toon.js?v=40"></script>
-<script src="js/vfx.js?v=40"></script>
-<script src="js/interactive.js?v=40"></script>
+<script src="js/main.js?v=41"></script>
+<script src="js/engine.js?v=41"></script>
+<script src="js/vfx.js?v=41"></script>
+<script src="js/interactive.js?v=41"></script>
 <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 </body>
 </html>

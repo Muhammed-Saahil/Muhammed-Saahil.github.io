@@ -6,12 +6,12 @@ Plain HTML/CSS/JS. No build step, no framework — open `index.html` directly or
 ```
 index.html            Home page (hero, about, featured projects, contact)
 projects.html         Full project grid with filters
-playground.html       Interactive page: Scene Builder + Neon Collector mini-game
+
 resume.html           Resume / CV page
 css/style.css         All styling (one file, used by every page)
 js/main.js            Mobile nav, intro, scroll animations, project filter, video/play toggle
 js/engine.js          Hero WebGL shader
-js/toon.js            Toon Shader lab (live, tweakable)
+
 js/vfx.js             Game VFX: particles, cursor sparks, click bursts, glitch headline, card tilt, XP scroll bar
 js/interactive.js     Hero 3D object, magnetic buttons, project detail panel, Scene Builder, mini-game
 assets/images/        Your photo and project screenshots
