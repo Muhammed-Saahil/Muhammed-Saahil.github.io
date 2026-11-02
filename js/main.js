@@ -47,49 +47,43 @@ document.addEventListener("DOMContentLoaded", () => {
           timers.forEach(clearTimeout);
           anims.forEach((a) => { try { a.cancel(); } catch (e) {} });
           store.set("introPlayed", "1");
-          document.querySelectorAll(".icurt").forEach((e) => e.remove());
+          const w = document.getElementById("iwrap"); if (w) w.remove();
           cleanupIntro();
           window.__introBusy = false;
         };
-        // two bar-shaped curtains (same colour as the background) hide the name until the line opens
+        // the name rises out of the line: a clip window (top of screen down to the line) hides it until it climbs up
         const nr = iname.getBoundingClientRect();
-        const NW = nr.width, ch = nr.height * 0.55;
-        const mk = (top) => {
-          const d = document.createElement("div");
-          d.className = "icurt";
-          d.style.width = NW + 60 + "px";
-          d.style.height = ch + "px";
-          d.style.marginLeft = -(NW + 60) / 2 + "px";
-          d.style.top = top ? "calc(50% - " + ch + "px)" : "50%";
-          document.body.appendChild(d);
-          return d;
-        };
-        const cTop = mk(true), cBot = mk(false);
+        const NW = nr.width, off = nr.height * 0.72;
+        const wrap = document.createElement("div");
+        wrap.id = "iwrap";
+        wrap.style.clipPath = "inset(0 0 calc(50% - " + off + "px) 0)";
+        document.body.appendChild(wrap);
+        wrap.appendChild(iname);
         iline.style.width = NW + "px";
-        const OPEN = "cubic-bezier(.65,0,.2,1)";
-        // 1) line grows from the middle out to the width of the name   0.2s -> 1.1s
-        A(iline, [{ transform: "translate(-50%,-50%) scaleX(0)", opacity: 1 }, { transform: "translate(-50%,-50%) scaleX(1)", opacity: 1 }], { duration: 900, delay: 200, easing: "cubic-bezier(.3,.7,.1,1)" });
-        // 2) it stops for a beat (1.1s -> 1.5s), then opens into the name   1.5s -> 2.4s
-        A(cTop, [{ transform: "translateY(0)" }, { transform: "translateY(-100%)" }], { duration: 900, delay: 1500, easing: OPEN });
-        A(cBot, [{ transform: "translateY(0)" }, { transform: "translateY(100%)" }], { duration: 900, delay: 1500, easing: OPEN });
-        A(iline, [{ opacity: 1 }, { opacity: 0 }], { duration: 500, delay: 1500, easing: "ease-out" });
-        timers.push(setTimeout(() => { cTop.remove(); cBot.remove(); }, 2500)); // curtains are done once the name is open
-        // 3) hold the name 1.5s (2.4s -> 3.9s), then shrink + fly to the nav brand spot (3.9s -> 4.9s)
+        iline.style.top = "calc(50% + " + off + "px)";
+        const rise = nr.height * 1.4;
+        // 1) the white line grows from the middle out to the width of the name   0.2s -> 1.1s
+        A(iline, [{ transform: "translate(-50%,-50%) scaleX(0)", opacity: 1 }, { transform: "translate(-50%,-50%) scaleX(1)", opacity: 1 }], { duration: 900, delay: 200, fill: "both", easing: "cubic-bezier(.3,.7,.1,1)" });
+        // 2) the line has finished and rests (1.1s -> 1.6s); only then the name rises up from it   1.6s -> 2.5s
+        A(iname, [{ transform: "translate(-50%, calc(-50% + " + rise + "px))" }, { transform: "translate(-50%,-50%)" }], { duration: 900, delay: 1600, fill: "both", easing: "cubic-bezier(.2,.8,.2,1)" });
+        // 3) hold the name 1.5s (2.5s -> 4.0s), then it slowly shrinks and glides to the nav brand spot (4.0s -> 5.6s)
         timers.push(setTimeout(() => {
           if (done) return;
           if (!navName) return finish();
-          document.body.classList.remove("intro-active");
           navName.style.visibility = "hidden";
+          wrap.style.clipPath = "none";
           const r = iname.getBoundingClientRect();
           const t = navName.getBoundingClientRect();
           const s = parseFloat(getComputedStyle(navName).fontSize) / parseFloat(getComputedStyle(iname).fontSize);
           const tx = t.left - window.innerWidth / 2;
           const ty = t.top - window.innerHeight / 2 + (t.height - r.height * s) / 2;
-          const ease = "cubic-bezier(.7,0,.2,1)";
-          A(iname, [{ transform: "translate(-50%,-50%) scale(1)" }, { transform: "translate(" + tx + "px," + ty + "px) scale(" + s + ")" }], { duration: 1000, easing: ease });
-          A(intro, [{ opacity: 1 }, { opacity: 0 }], { duration: 700, delay: 300, easing: "ease-in-out" });
-          timers.push(setTimeout(() => { navName.style.visibility = ""; finish(); }, 1050));
-        }, 3900));
+          const ease = "cubic-bezier(.65,0,.25,1)";
+          A(iline, [{ opacity: 1 }, { opacity: 0 }], { duration: 500, easing: "ease-out" });
+          A(iname, [{ transform: "translate(-50%,-50%) scale(1)" }, { transform: "translate(" + tx + "px," + ty + "px) scale(" + s + ")" }], { duration: 1500, easing: ease });
+          A(intro, [{ opacity: 1 }, { opacity: 0 }], { duration: 1200, delay: 300, easing: "ease-in-out" });
+          timers.push(setTimeout(() => document.body.classList.remove("intro-active"), 900));
+          timers.push(setTimeout(() => { navName.style.visibility = ""; finish(); }, 1600));
+        }, 4000));
         intro.addEventListener("click", () => { const n = document.querySelector(".nav-name"); if (n) n.style.visibility = ""; finish(); });
         document.addEventListener("keydown", () => { const n = document.querySelector(".nav-name"); if (n) n.style.visibility = ""; finish(); }, { once: true });
       }
