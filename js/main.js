@@ -19,103 +19,61 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   }
 
-  // Intro sequence (index.html only, plays once per browser session)
+  // Intro (index.html only, plays once per browser session): a line grows, opens into the name,
+  // holds 1.5s, then the name shrinks and flies to the nav brand spot.
   const intro = document.getElementById("intro");
-  if (intro) {
-   try {
-    const forceReplay = new URLSearchParams(location.search).get("intro") === "force";
-    const alreadyPlayed = store.get("introPlayed") && !forceReplay;
-    if (alreadyPlayed) {
-      intro.remove();
-    } else {
-      document.body.classList.add("intro-active");
-      const heroEl = document.querySelector(".hero");
-      const bootLog = document.getElementById("boot-log");
-      const bootBar = document.getElementById("boot-bar");
-      const bootTitle = document.getElementById("boot-title");
-
-      const lines = [
-        { tag: "[ENGINE]", text: "Initializing viewport..." },
-        { tag: "[ASSETS]", text: "Loading scene graph..." },
-        { tag: "[SHADER]", text: "Compiling materials..." },
-        { tag: "[READY]", text: "Handing off to renderer." },
-      ];
-
-      let cancelled = false;
-      let timers = [];
-      const setT = (fn, ms) => { const id = setTimeout(fn, ms); timers.push(id); return id; };
-
-      function typeLine(el, text, speed, onDone) {
-        let i = 0;
-        el.classList.add("shown");
-        const cursor = document.createElement("span");
-        cursor.className = "cursor";
-        function tick() {
-          if (cancelled) return;
-          el.textContent = text.slice(0, i);
-          el.appendChild(cursor);
-          i++;
-          if (i <= text.length) {
-            setT(tick, speed);
-          } else {
-            cursor.remove();
-            if (onDone) onDone();
-          }
-        }
-        tick();
-      }
-
-      function runBoot() {
-        let delay = 0;
-        lines.forEach((line, idx) => {
-          setT(() => {
-            const row = document.createElement("div");
-            row.className = "line";
-            const tagSpan = document.createElement("span");
-            tagSpan.className = "tag";
-            tagSpan.textContent = line.tag + " ";
-            row.appendChild(tagSpan);
-            const textSpan = document.createElement("span");
-            row.appendChild(textSpan);
-            bootLog.appendChild(row);
-            typeLine(textSpan, line.text, 16);
-          }, delay);
-          delay += 380;
-        });
-
-        // Progress bar fills alongside the log
-        setT(() => { bootBar.style.transition = "width 1.3s linear"; bootBar.style.width = "100%"; }, 150);
-
-        // Title + glitch flash, then reveal
-        setT(() => {
-          intro.classList.add("boot-ready");
-        }, delay + 150);
-
-        setT(finishIntro, delay + 550);
-      }
-
-      const finishIntro = () => {
-        if (cancelled) return;
-        cancelled = true;
-        timers.forEach(clearTimeout);
-        intro.classList.add("boot-flash");
-        setTimeout(() => {
-          intro.classList.add("intro-hide");
-          document.body.classList.remove("intro-active");
+  const iline = document.getElementById("iline");
+  const iname = document.getElementById("iname");
+  const cleanupIntro = () => {
+    [intro, iline, iname].forEach((e) => e && e.remove());
+    document.body.classList.remove("intro-active");
+  };
+  if (intro && iline && iname) {
+    try {
+      const forceReplay = new URLSearchParams(location.search).get("intro") === "force";
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if ((store.get("introPlayed") && !forceReplay) || !iname.animate || reduced) {
+        cleanupIntro();
+      } else {
+        document.body.classList.add("intro-active");
+        const navName = document.querySelector(".nav-name");
+        const anims = [], timers = [];
+        let done = false;
+        const A = (el, kf, o) => { const a = el.animate(kf, Object.assign({ fill: "forwards" }, o)); anims.push(a); return a; };
+        const finish = () => {
+          if (done) return;
+          done = true;
+          timers.forEach(clearTimeout);
+          anims.forEach((a) => { try { a.cancel(); } catch (e) {} });
           store.set("introPlayed", "1");
-          if (heroEl) heroEl.classList.add("zoom-reveal");
-          setTimeout(() => intro.remove(), 650);
-        }, 140);
-      };
-
-      runBoot();
-      intro.addEventListener("click", finishIntro);
-      document.addEventListener("keydown", finishIntro, { once: true });
+          cleanupIntro();
+        };
+        const W = Math.min(560, window.innerWidth * 0.64);
+        A(iline, [{ width: "0px", opacity: 1 }, { width: W + "px", opacity: 1 }], { duration: 800, delay: 200, easing: "cubic-bezier(.2,.7,.1,1)" });
+        A(iname, [{ clipPath: "inset(50% 0 50% 0)", letterSpacing: ".08em" }, { clipPath: "inset(-10% 0 -10% 0)", letterSpacing: "-.02em" }], { duration: 900, delay: 1000, easing: "cubic-bezier(.2,.8,.2,1)" });
+        A(iline, [{ opacity: 1, width: W + "px" }, { opacity: 0, width: W * 1.15 + "px" }], { duration: 700, delay: 1100, easing: "ease-out" });
+        timers.push(setTimeout(() => {
+          if (done) return;
+          if (!navName) return finish();
+          document.body.classList.remove("intro-active");
+          navName.style.visibility = "hidden";
+          const r = iname.getBoundingClientRect();
+          const t = navName.getBoundingClientRect();
+          const s = parseFloat(getComputedStyle(navName).fontSize) / parseFloat(getComputedStyle(iname).fontSize);
+          const tx = t.left - window.innerWidth / 2;
+          const ty = t.top - window.innerHeight / 2 + (t.height - r.height * s) / 2;
+          const ease = "cubic-bezier(.7,0,.2,1)";
+          A(iname, [{ transform: "translate(-50%,-50%) scale(1)" }, { transform: "translate(" + tx + "px," + ty + "px) scale(" + s + ")" }], { duration: 1000, easing: ease });
+          A(iname, [{ fontWeight: 700 }, { fontWeight: 600 }], { duration: 1000, easing: ease });
+          A(intro, [{ opacity: 1 }, { opacity: 0 }], { duration: 700, delay: 300, easing: "ease-in-out" });
+          timers.push(setTimeout(() => { navName.style.visibility = ""; finish(); }, 1050));
+        }, 3400));
+        intro.addEventListener("click", () => { const n = document.querySelector(".nav-name"); if (n) n.style.visibility = ""; finish(); });
+        document.addEventListener("keydown", () => { const n = document.querySelector(".nav-name"); if (n) n.style.visibility = ""; finish(); }, { once: true });
+      }
+    } catch (err) {
+      cleanupIntro();
     }
-   } catch (err) {
-     intro.remove();
-     document.body.classList.remove("intro-active");
-   }
   }
 
   // Cursor glow — soft light that follows the mouse (desktop/hover-capable only)

@@ -116,103 +116,31 @@ img { max-width: 100%; display: block; }
   }
 }
 
-/* ---------- Intro sequence (plays once on first visit) ---------- */
-#intro {
-  position: fixed;
-  inset: 0;
-  z-index: 999;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 22px;
-  background: var(--bg-0);
-  transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.6, 0, 1, 1), visibility 0.6s ease;
+/* ---------- Intro: line -> name -> flies to the nav (plays once per session) ---------- */
+#intro { position: fixed; inset: 0; z-index: 999; background: var(--bg-0); }
+#iline {
+  position: fixed; left: 50%; top: 50%; z-index: 1000; width: 0; height: 2px;
+  transform: translate(-50%, -50%); border-radius: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), var(--cyan), var(--accent), transparent);
+  box-shadow: 0 0 18px rgba(102, 232, 255, 0.55);
 }
-#intro.intro-hide {
-  opacity: 0;
-  transform: scale(1.15);
-  visibility: hidden;
-  pointer-events: none;
+#iname {
+  position: fixed; left: 50%; top: 50%; z-index: 1001; margin: 0; white-space: nowrap;
+  font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; line-height: 1;
+  font-size: clamp(34px, 8.4vw, 104px); color: var(--text-0);
+  transform: translate(-50%, -50%); transform-origin: 0 0; clip-path: inset(50% 0 50% 0);
+  will-change: transform, clip-path;
 }
-#intro .boot-log {
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
-  color: var(--axis-y);
-  width: min(88vw, 420px);
-  min-height: 108px;
-  line-height: 1.7;
-}
-#intro .boot-log .line { opacity: 0; }
-#intro .boot-log .line.shown { opacity: 1; }
-#intro .boot-log .tag { color: var(--text-1); }
-#intro .boot-log .cursor {
-  display: inline-block;
-  width: 7px;
-  height: 14px;
-  background: var(--axis-y);
-  margin-left: 4px;
-  vertical-align: -2px;
-  animation: blink 0.8s steps(1) infinite;
-}
-@keyframes blink { 50% { opacity: 0; } }
-
-#intro .boot-bar-track {
-  width: min(88vw, 420px);
-  height: 3px;
-  background: var(--line);
-  border-radius: 2px;
-  overflow: hidden;
-}
-#intro .boot-bar-fill {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, var(--axis-x), var(--axis-y), var(--axis-z));
-}
-
-#intro .boot-title {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.1rem;
-  letter-spacing: 0.06em;
-  color: var(--text-0);
-  opacity: 0;
-}
-#intro.boot-ready .boot-title { animation: introTextIn 0.4s ease forwards; }
-
-#intro .intro-skip {
-  position: absolute;
-  bottom: 28px;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--text-1);
-  cursor: pointer;
-}
-#intro .intro-skip:hover { color: var(--text-0); }
-
-#intro .glitch-flash {
-  position: fixed;
-  inset: 0;
-  background: var(--text-0);
-  opacity: 0;
-  pointer-events: none;
-}
-#intro.boot-flash .glitch-flash { animation: flashPulse 0.35s steps(2) forwards; }
-@keyframes flashPulse {
-  0% { opacity: 0; }
-  20% { opacity: 0.9; }
-  40% { opacity: 0; }
-  55% { opacity: 0.6; }
-  70% { opacity: 0; }
-  100% { opacity: 0; }
-}
-
-@keyframes introTextIn { to { opacity: 1; transform: none; } }
+body.intro-active .nav-name { visibility: hidden; }
+body.intro-active .nav-links, body.intro-active .availability, body.intro-active .nav-toggle { opacity: 0; }
+.nav-links, .availability, .nav-toggle { transition: opacity 0.7s ease; }
 
 body.intro-active { overflow: hidden; }
 
 @media (prefers-reduced-motion: reduce) {
-  #intro { display: none; }
+  #intro, #iline, #iname { display: none; }
+  body.intro-active .nav-name { visibility: visible; }
+  body.intro-active .nav-links, body.intro-active .availability, body.intro-active .nav-toggle { opacity: 1; }
 }
 
 /* Cinematic zoom-in reveal for the hero, right after intro finishes */
@@ -822,12 +750,17 @@ footer {
    ===================================================== */
 
 /* ---- Failsafes: content must never stay hidden if scripts are blocked ---- */
-#intro { display: none; }
-.js #intro { display: flex; animation: introFail 0.4s ease 4.2s forwards; }
+#intro, #iline, #iname { display: none; }
+.js #intro, .js #iline, .js #iname { display: block; }
+.js #intro { animation: introFail 0.4s ease 7s forwards; }
+.js #iline, .js #iname { animation: introFailEl 0.1s linear 7.4s forwards; }
 @keyframes introFail { to { opacity: 0; visibility: hidden; pointer-events: none; } }
+@keyframes introFailEl { to { opacity: 0; visibility: hidden; } }
 html:not(.js) .reveal { opacity: 1; transform: none; }
 .no-fx .reveal { opacity: 1 !important; transform: none !important; }
-.no-fx #intro { display: none !important; }
+.no-fx #intro, .no-fx #iline, .no-fx #iname { display: none !important; }
+.no-fx body.intro-active .nav-name { visibility: visible; }
+.no-fx body.intro-active .nav-links, .no-fx body.intro-active .availability, .no-fx body.intro-active .nav-toggle { opacity: 1; }
 .no-fx body.intro-active { overflow: auto; }
 
 /* ---- Particle canvas (cursor sparks, click bursts, floating motes) ---- */
@@ -1516,10 +1449,6 @@ footer { padding: 28px 0; border-top: 1px solid var(--line); font-size: 10px; te
 .resume-item .role { font-weight: 800; letter-spacing: -0.03em; }
 
 /* ---------- Intro boot sequence ---------- */
-#intro .boot-log { color: var(--accent); }
-#intro .boot-log .cursor { background: var(--accent); }
-#intro .boot-bar-fill { background: linear-gradient(90deg, var(--accent), var(--cyan), var(--violet)); }
-#intro .boot-title { font-weight: 900; letter-spacing: -0.03em; }
 
 @media (prefers-reduced-motion: reduce) {
   .avail-dot, .hero-tag .axis span:first-child { animation: none; }
