@@ -150,6 +150,7 @@
     function loop(now) {
       raf = 0;
       if (!visible || document.hidden) { lastNow = 0; return; }
+      if (window.__introBusy) { lastNow = 0; raf = requestAnimationFrame(loop); return; }
       if (lastNow) {
         ema = ema * 0.92 + ((now - lastNow) / 1000) * 0.08;
         frames++;

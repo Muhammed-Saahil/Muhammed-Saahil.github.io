@@ -263,7 +263,7 @@
     window.addEventListener("pointermove", function (e) { mx = e.clientX; my = e.clientY; }, { passive: true });
     function frame() {
       requestAnimationFrame(frame);
-      if (document.hidden) return;
+      if (document.hidden || window.__introBusy) return;
       ctx.clearRect(0, 0, W, H);
       var i, j, a, b, dx, dy, d;
       for (i = 0; i < dots.length; i++) {

@@ -150,7 +150,7 @@
     var last = performance.now();
     function frame(now) {
       requestAnimationFrame(frame);
-      if (document.hidden) { last = now; return; }
+      if (document.hidden || window.__introBusy) { last = now; return; }
       var dt = Math.min(0.05, (now - last) / 1000);
       last = now;
       var k60 = dt * 60;

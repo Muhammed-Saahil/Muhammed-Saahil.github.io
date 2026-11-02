@@ -39,6 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const navName = document.querySelector(".nav-name");
         const anims = [], timers = [];
         let done = false;
+        window.__introBusy = true; // pause the heavy background animations while the intro plays
         const A = (el, kf, o) => { const a = el.animate(kf, Object.assign({ fill: "forwards" }, o)); anims.push(a); return a; };
         const finish = () => {
           if (done) return;
@@ -46,12 +47,34 @@ document.addEventListener("DOMContentLoaded", () => {
           timers.forEach(clearTimeout);
           anims.forEach((a) => { try { a.cancel(); } catch (e) {} });
           store.set("introPlayed", "1");
+          document.querySelectorAll(".icurt").forEach((e) => e.remove());
           cleanupIntro();
+          window.__introBusy = false;
         };
-        const W = Math.min(560, window.innerWidth * 0.64);
-        A(iline, [{ width: "0px", opacity: 1 }, { width: W + "px", opacity: 1 }], { duration: 800, delay: 200, easing: "cubic-bezier(.2,.7,.1,1)" });
-        A(iname, [{ clipPath: "inset(50% 0 50% 0)", letterSpacing: ".08em" }, { clipPath: "inset(-10% 0 -10% 0)", letterSpacing: "-.02em" }], { duration: 900, delay: 1000, easing: "cubic-bezier(.2,.8,.2,1)" });
-        A(iline, [{ opacity: 1, width: W + "px" }, { opacity: 0, width: W * 1.15 + "px" }], { duration: 700, delay: 1100, easing: "ease-out" });
+        // two bar-shaped curtains (same colour as the background) hide the name until the line opens
+        const nr = iname.getBoundingClientRect();
+        const NW = nr.width, ch = nr.height * 0.55;
+        const mk = (top) => {
+          const d = document.createElement("div");
+          d.className = "icurt";
+          d.style.width = NW + 60 + "px";
+          d.style.height = ch + "px";
+          d.style.marginLeft = -(NW + 60) / 2 + "px";
+          d.style.top = top ? "calc(50% - " + ch + "px)" : "50%";
+          document.body.appendChild(d);
+          return d;
+        };
+        const cTop = mk(true), cBot = mk(false);
+        iline.style.width = NW + "px";
+        const OPEN = "cubic-bezier(.65,0,.2,1)";
+        // 1) line grows from the middle out to the width of the name   0.2s -> 1.1s
+        A(iline, [{ transform: "translate(-50%,-50%) scaleX(0)", opacity: 1 }, { transform: "translate(-50%,-50%) scaleX(1)", opacity: 1 }], { duration: 900, delay: 200, easing: "cubic-bezier(.3,.7,.1,1)" });
+        // 2) it stops for a beat (1.1s -> 1.5s), then opens into the name   1.5s -> 2.4s
+        A(cTop, [{ transform: "translateY(0)" }, { transform: "translateY(-100%)" }], { duration: 900, delay: 1500, easing: OPEN });
+        A(cBot, [{ transform: "translateY(0)" }, { transform: "translateY(100%)" }], { duration: 900, delay: 1500, easing: OPEN });
+        A(iline, [{ opacity: 1 }, { opacity: 0 }], { duration: 500, delay: 1500, easing: "ease-out" });
+        timers.push(setTimeout(() => { cTop.remove(); cBot.remove(); }, 2500)); // curtains are done once the name is open
+        // 3) hold the name 1.5s (2.4s -> 3.9s), then shrink + fly to the nav brand spot (3.9s -> 4.9s)
         timers.push(setTimeout(() => {
           if (done) return;
           if (!navName) return finish();
@@ -64,10 +87,9 @@ document.addEventListener("DOMContentLoaded", () => {
           const ty = t.top - window.innerHeight / 2 + (t.height - r.height * s) / 2;
           const ease = "cubic-bezier(.7,0,.2,1)";
           A(iname, [{ transform: "translate(-50%,-50%) scale(1)" }, { transform: "translate(" + tx + "px," + ty + "px) scale(" + s + ")" }], { duration: 1000, easing: ease });
-          A(iname, [{ fontWeight: 700 }, { fontWeight: 600 }], { duration: 1000, easing: ease });
           A(intro, [{ opacity: 1 }, { opacity: 0 }], { duration: 700, delay: 300, easing: "ease-in-out" });
           timers.push(setTimeout(() => { navName.style.visibility = ""; finish(); }, 1050));
-        }, 3400));
+        }, 3900));
         intro.addEventListener("click", () => { const n = document.querySelector(".nav-name"); if (n) n.style.visibility = ""; finish(); });
         document.addEventListener("keydown", () => { const n = document.querySelector(".nav-name"); if (n) n.style.visibility = ""; finish(); }, { once: true });
       }
