@@ -282,45 +282,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Video / play-in-browser toggles on project cards
-  document.querySelectorAll(".card").forEach((card) => {
-    const thumb = card.querySelector(".card-thumb");
-    const actions = card.querySelector(".media-actions");
-    if (!thumb || !actions) return;
-
-    const originalHTML = thumb.innerHTML;
-
-    const showBack = () => {
-      let backBtn = actions.querySelector(".back-btn");
-      if (!backBtn) {
-        backBtn = document.createElement("button");
-        backBtn.className = "media-btn back-btn";
-        backBtn.textContent = "← Back to screenshot";
-        backBtn.addEventListener("click", () => {
-          thumb.innerHTML = originalHTML;
-          actions.querySelectorAll(".media-btn").forEach((b) => b.classList.remove("is-active"));
-          backBtn.remove();
-        });
-        actions.appendChild(backBtn);
-      }
-    };
-
-    actions.querySelectorAll("[data-action]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const src = btn.dataset.src;
-        if (!src) return;
-        actions.querySelectorAll(".media-btn").forEach((b) => b.classList.remove("is-active"));
-        btn.classList.add("is-active");
-
-        if (btn.dataset.action === "video") {
-          thumb.innerHTML = `<video controls autoplay playsinline src="${src}"></video>`;
-        } else if (btn.dataset.action === "play") {
-          thumb.innerHTML = `<iframe src="${src}" loading="lazy" allow="autoplay; fullscreen; gamepad" allowfullscreen></iframe>`;
-        }
-        showBack();
-      });
-    });
-  });
+  // (Card video / play buttons open the project details panel instead of playing inline: see js/interactive.js)
 
   // Project filter (only present on projects.html)
   const filterBar = document.querySelector(".filters");

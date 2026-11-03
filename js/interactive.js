@@ -218,6 +218,17 @@
       var card = e.target.closest && e.target.closest(".card");
       if (!card || !info.has(card)) return;
       var opener = e.target.closest(".card-open");
+      var mbtn = e.target.closest(".media-btn[data-action]");
+      if (mbtn && card.contains(mbtn)) {
+        // Watch gameplay / Play in browser: open the project, then start that media inside the panel
+        open(card);
+        var want = mbtn.textContent.trim();
+        Array.prototype.some.call(actionsEl.querySelectorAll("button.btn"), function (b) {
+          if (b.textContent.trim() === want) { b.click(); return true; }
+          return false;
+        });
+        return;
+      }
       if (!opener) {
         // leave links, other buttons and playing media alone
         if (e.target.closest("a, button, video, iframe")) return;
